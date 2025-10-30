@@ -19,11 +19,12 @@ int main()
     int a = 10;
 
     /*
-     * Variable Naming Rules
+     * Variable Naming Rules (these rules applies to all types of identifiers)
      *
      * 1. Name can have only "alphabates", "numbers" and "_".
      * 2. Name cannot start with number.
      * 3. Name cannot have special-symbol.
+     * 4. Name cannot be a keyword/reserved word
      */
 
 
