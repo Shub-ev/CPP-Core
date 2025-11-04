@@ -1,3 +1,5 @@
+// #define NDEBUG          // This must be placed before any #include
+
 #include <iostream>
 #include <cassert>      // For asssertion
 #include <cmath>        // For std::sqrt
@@ -57,6 +59,36 @@ void printDivide(int x, int y)
  *
  */
 
+/*
+ * statis_assert
+ * C++ have another type of assert called as static assert.
+ * static assert is a type of assert that is checked at compile-time rather
+ * than runtime.
+ * Failing static_assert cause compile-time error.
+ *
+ * Unlike assert which is declared in <cassert> header, static_assert is a
+ * keyword.
+ *
+ * syntax:
+ * static_assert(condition, diagnostic_message);
+ * If the condition is not true, diagnostic message is printed.
+ *
+ * Few conditions for using static_assert:
+ * 1. As static_assert is evaluated at compile-time condition should be
+ *    constant expression.
+ * 2. static_assert can be placed anywhere in the code file.
+ * 3. static_assert cannot be deactivated as assert.
+ * 4. as compiler does the evaluation, there is no runtime cost.
+ *
+ * since C++17, diagnostic_message is optional.
+ * -> preffer, static_assert over assert.
+ */
+const int tr = 1;
+const int fal = 0;
+
+static_assert(tr, "True is true!");
+static_assert(fal, "Fals is false!");
+
 double calculateTimeUtilObjectHitsGround(double initialHeight, double gravity)
 {
     assert(gravity > 0.0);      // The object will not react the ground uless
@@ -70,9 +102,47 @@ double calculateTimeUtilObjectHitsGround(double initialHeight, double gravity)
     return std::sqrt((2.0 * initialHeight) / gravity);
 }
 
+
+
+/*
+ * Assertions VS Errors handling
+ *
+ * Assertions are used to detect programming errors during development by
+ * documenting assumptions about things that should never happen.
+ * Assertions do not allow the recovery from errors.
+ *
+ * Error handling is used when we need to gracefully handle cases that could
+ * happen in a release build. This could be either recoverable or unrecoverable
+ * issues.
+ */
+
 int main()
 {
     // This statement will fail, "assert(gravity > 0.0)" and will print error.
-    calculateTimeUtilObjectHitsGround(10, -9.8);
+    // calculateTimeUtilObjectHitsGround(10, -9.8);
+
+
+    /*
+     * Assertion below prints "Assertion 'temp' failed."
+     * This dosent tell anything more about assertion or about state of code.
+     */
+    int temp = 0;
+    // assert(temp);
+
+    /*
+     * Better approach
+     * -> string literal always evaluates to Boolean true.
+     *    This gives some additional context as to what went wrong.
+     */
+    assert(temp && "Temp is zero!");
+
+    /*
+     * assert macro comes with small performance cost for each assert check.
+     * also assert should not be present in the production code, because we
+     * have already tested our code.
+     *
+     * C++, comes with build in way to turn off the asserts in production code.
+     * If pre-processor macro NDEBUG is defined then assert macro is disabled.
+     */
     return 0;
 }
