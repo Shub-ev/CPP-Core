@@ -61,7 +61,32 @@ constexpr int numLegs(AnimalType type)
 }
 #endif
 
-#define 
+#define OOP_MINDSET_EXAMPLE
+#ifdef OOP_MINDSET_EXAMPLE
+
+/*
+ * Here, we have program-defined type for each animal.
+ * So, for each animal we just need to instantiate that type.
+ * Also, if we want to add any animal we can just add that type.
+ * Very less amount of code needs to be changed.
+ */
+
+struct Cat {
+    std::string_view name {"cat"};
+    int numLegs {4};
+};
+
+struct Dog {
+    std::string_view name {"Dog"};
+    int numLegs {4};
+};
+
+struct Chicken {
+    std::string_view name {"Chicken"};
+    int numLegs {2};
+};
+
+#endif
 
 int main()
 {
