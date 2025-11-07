@@ -1,13 +1,14 @@
 #include <iostream>
-
-enum Color {
-    red,
-    pink,
-};
+#include <string_view>
 
 int main()
 {
-    int red = 10;
-    std::cout<<red<<std::endl;
+    std::string str {"This is string"};
+    std::string_view s1 (str);
+    std::cout << s1 << std::endl;
+
+    str = "Another string!";
+    std::cout << s1 << std::endl;
+
     return 0;
 }
