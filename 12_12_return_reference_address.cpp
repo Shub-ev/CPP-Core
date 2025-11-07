@@ -85,19 +85,43 @@ const int& getId()
  */
 std::string r_string()
 {
-    // Here we are returning rvalue by const reference.
     return "Hello";
 }
 
 /*
  * We can also return const reference to the rvalue, as follow.
  * This is also "lifetime extension" example.
+ *
+ * Here,
+ * 1. r_string() returns temporary unnamed std::string object (prvalue)call it
+ *    TempA. This is return by value, hence that string object will be copied
+ *    or moved out of the function to the caller's environment. As this is
+ *    rvalue it will only get destroyed at the end of the expression.
+ * 2. Now this temp. object is passed to the function const_r_string(), here
+ *    temp. object (prvalue) is binded to const std::string& which is lvalue
+ *    hence C++ extends the life of the reference parameter.
+ * 3. Now that temp. string object have life till completion of const_r_string
+ *    function.
  */
 const std::string& const_r_string(const std::string& str)
 {
+    // Here we are returning rvalue by const reference.
     return str;
 }
 
+/*
+ * As any non-constant reference passed to the function, can be modified by
+ * the function. Same way any non-constant reference returned by the function
+ * also can be modified by the caller function.
+ */
+
+/*
+ * The major advantage of return by address is we can return nullptr if we dont
+ * have any valid object.
+ *
+ * The major disadvantage of return by address is that the caller has to do
+ * nullptr check before dereferencing the return value.
+ */
 
 int main()
 {
