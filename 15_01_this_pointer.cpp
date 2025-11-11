@@ -78,9 +78,13 @@ class Calculator {
 /*
  * Resetting Class back to Default
  *
- * If our class has default constructor, 
+ * Constructors are just for initialization of new objects, and should not be
+ * called directly. Doing so will result in unexpected behaviour.
+ *
+ * Best way to reset object back to default state is to create a reset()
+ * function, have that function create new object (using default constructor)
+ * and then assign that new object to the currect implicit object.
  */
-
 int main()
 {
     Student student1;
@@ -112,5 +116,22 @@ int main()
     cal1.add(20).sub(10).mul(5);
     cal1.print();
 
+    void reset()
+    {
+        this* = {};  // value initialize a new object and overwrite the implicit
+    }
     return 0;
 }
+
+/*
+ * For non-constant member function, "this" is a const pointer to a non-constant
+ * value. meaning this cannot be pointed at something else.
+ */
+
+/*
+ * Why this is a pointer and not a reference.
+ *
+ * "this" is a pointer and not a reference. And the answer is when "this" was
+ * added references didnt exist. but languages like C++, like java and C#
+ * this is reference.
+ */
