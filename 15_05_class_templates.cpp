@@ -9,6 +9,12 @@
 template <typename T>
 class Pair
 {
+    /*
+     * In scope of the class, the unqualified name of the class is called an
+     * "injected class name".
+     * In a class template, the injected class name serves as shorthand for the
+     * fully templated name. Because Pair is the injected name of Pair<T>.
+     */
     private:
         T m_x {};
         T m_y {};
@@ -24,6 +30,9 @@ class Pair
 };
 // When we define member function outside the class definition,
 // we need to resupply a template parameter declaration.
+//
+// Any member function templates defined outside the class definition should be
+// defined just below the class definition (in the same file).
 template <typename T>
 bool Pair::isEqual(const Pair<T>& pair)
 {
